@@ -1,3 +1,10 @@
+package com;
+
+import com.CarCollection.Status;
+import com.Car;
+import com.ParkingClass;
+import com.ParkingLot;
+import com.ParkingLotListener;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -47,7 +54,7 @@ public class ParkingLotTest {
         Car car1 = new Car();
 
         ParkingLotListener fullListener = mock(ParkingLotListener.class);
-//        parkingLot.addListener(fullListener, Status.FULL);
+        parkingLot.addListener(fullListener, Status.FULL);
 
         parkingLot.allot(car1);
         verify(fullListener, times(1)).notifyStateChange();
@@ -58,7 +65,7 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot(2, ParkingClass.DELUXE);
         ParkingLotListener availableListener = mock(ParkingLotListener.class);
 
-//        parkingLot.addListener(availableListener, Status.FULL);
+        parkingLot.addListener(availableListener, Status.FULL);
         Car car1 = new Car();
         parkingLot.allot(car1);
 
@@ -66,7 +73,7 @@ public class ParkingLotTest {
         parkingLot.allot(car2);
 
         ParkingLotListener newListener = mock(ParkingLotListener.class);
-//        parkingLot.addListener(newListener, Status.AVAILABLE);
+        parkingLot.addListener(newListener, Status.AVAILABLE);
         parkingLot.release(car1);
         verify(newListener, times(1)).notifyStateChange();
     }
@@ -78,6 +85,7 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot(5, ParkingClass.DELUXE);
         ParkingLotListener fullListener = mock(ParkingLotListener.class);
 //        parkingLot.register(Status.FULL, new FullNotifier(fullListener));
+        parkingLot.addListener(fullListener, Status.FULL);
 
         parkingLot.allot(new Car());
         parkingLot.allot(new Car());

@@ -1,15 +1,17 @@
+package com;
+
 import java.util.ArrayList;
 
 public class CarCollection extends ArrayList<Car> {
     private int capacity;
     private boolean isStatusChanged;
     private Status status;
-//    private ArrayList<ParkingLotListener> parkingLotListeners;
+    private ArrayList<ParkingLotListener> parkingLotListeners;
 
 
     public CarCollection(int capacity) {
         this.capacity = capacity;
-//        this.parkingLotListeners = new ArrayList<ParkingLotListener>();
+        this.parkingLotListeners = new ArrayList<ParkingLotListener>();
         updateStatus();
     }
 
@@ -17,6 +19,15 @@ public class CarCollection extends ArrayList<Car> {
     public boolean add(Car newCar) {
         if (!isFull()) {
             super.add(newCar);
+            updateStatus();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean remove(Car newCar) {
+        if (super.contains(newCar)) {
+            super.remove(newCar);
             updateStatus();
             return true;
         }

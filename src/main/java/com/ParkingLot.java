@@ -1,3 +1,5 @@
+package com;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,7 +8,6 @@ public class ParkingLot {
     private CarCollection parkedCars;
     private ArrayList<ParkingLotListener> parkingLotListeners;
     private HashMap<CarCollection.Status, ArrayList<ParkingLotListener>> listeners;
-    private int cost;
 
     public ParkingLot(int capacity, ParkingClass parkingClass) {
         this.parkedCars = new CarCollection(capacity);
@@ -26,20 +27,27 @@ public class ParkingLot {
     }
 
     private void updateCarCollectionStatus() {
+        System.out.println("update collection status");
         if (parkedCars.isStatusChanged()) {
             notifyStatusChangeListeners();
         }
     }
 
     private void notifyStatusChangeListeners() {
-        if (listeners.containsKey(parkedCars.getStatus()))
+        System.out.println("listener");
+        if (listeners.get(parkedCars.getStatus()) != null) {
+            System.out.println(parkedCars.getStatus());
             for (ParkingLotListener listener : listeners.get(parkedCars.getStatus())) {
                 listener.notifyStateChange();
             }
+        }
+
     }
 
     public boolean release(Car carToRelease) {
+
         if (parkedCars.contains(carToRelease)) {
+            System.out.println("car removed");
             parkedCars.remove(carToRelease);
             updateCarCollectionStatus();
             return true;
@@ -62,7 +70,7 @@ public class ParkingLot {
     }
 
     public int getCost() {
-        return cost;
+        return parkingClass.getCost();
     }
 
     public int getAvailableSpaces() {

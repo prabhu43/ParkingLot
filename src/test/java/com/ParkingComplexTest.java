@@ -1,3 +1,9 @@
+package com;
+
+import com.Car;
+import com.ParkingClass;
+import com.ParkingComplex;
+import com.ParkingLot;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
