@@ -27,16 +27,13 @@ public class ParkingLot {
     }
 
     private void updateCarCollectionStatus() {
-        System.out.println("update collection status");
         if (parkedCars.isStatusChanged()) {
             notifyStatusChangeListeners();
         }
     }
 
     private void notifyStatusChangeListeners() {
-        System.out.println("listener");
         if (listeners.get(parkedCars.getStatus()) != null) {
-            System.out.println(parkedCars.getStatus());
             for (ParkingLotListener listener : listeners.get(parkedCars.getStatus())) {
                 listener.notifyStateChange();
             }
@@ -47,7 +44,6 @@ public class ParkingLot {
     public boolean release(Car carToRelease) {
 
         if (parkedCars.contains(carToRelease)) {
-            System.out.println("car removed");
             parkedCars.remove(carToRelease);
             updateCarCollectionStatus();
             return true;
